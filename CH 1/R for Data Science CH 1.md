@@ -3,8 +3,8 @@
 ## 1.2.5 Exercises
 
 ##### 1. How many rows are in penguins? How many columns?
-'penguins' into console or 'glimpse(penguins)'
-Rows: 344
+'penguins' into console or 'glimpse(penguins)'  
+Rows: 344  
 Columns: 8
 
 ##### 2. What does the bill_depth_mm variable in the penguins data frame describe? Read the help for ?penguins to find out.
@@ -30,7 +30,7 @@ ggplot(data = penguins) +
 needs axes to plot
 
 ##### 6. What does the na.rm argument do in geom_point()? What is the default value of the argument? Create a scatterplot where you successfully use this argument set to TRUE.
-na.rm ignores/removes missing values
+na.rm ignores/removes missing values  
 default is FALSE
 ```
 ggplot(data=penguins, mapping=aes(x=flipper_length_mm, y=body_mass_g)) + geom_point(na.rm=TRUE)
