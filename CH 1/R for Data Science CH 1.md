@@ -103,3 +103,105 @@ ggplot(diamonds, aes(x = carat)) +
   geom_histogram(binwidth = .5)
 ```
 smaller binwidths (.125) reveal more variation in the data, while larger binwidths (1) generalize beyond usefulness; a binwidth of .5 shows a clear relationship without overgeneralizing.
+
+## 1.5.5 Exercises
+
+##### 1. The mpg data frame that is bundled with the ggplot2 package contains 234 observations collected by the US Environmental Protection Agency on 38 car models. Which variables in mpg are categorical? Which variables are numerical? (Hint: Type ?mpg to read the documentation for the dataset.) How can you see this information when you run mpg?  
+Categorical: manufacturer, model, trans, drv, fl, class  
+Numerical: displ, year, cyl, cty, hwy  
+Data types can be seen in tabular format when mpg is run; however the categorical/quantitative divide is not as simple as the difference between string data types and int/double/float types
+
+##### 2. Make a scatterplot of hwy vs. displ using the mpg data frame. Next, map a third, numerical variable to color, then size, then both color and size, then shape. How do these aesthetics behave differently for categorical vs. numerical variables?
+```
+ggplot(
+  data = mpg,
+  mapping = aes(x = hwy, y = displ)
+) +
+  geom_point()
+```
+```
+ggplot(
+  data = mpg,
+  mapping = aes(x = hwy, y = displ)
+) +
+  geom_point(mapping= aes(color=cyl))
+```
+```
+ggplot(
+  data = mpg,
+  mapping = aes(x = hwy, y = displ)
+) +
+  geom_point(mapping= aes(size=year))
+```
+```
+ggplot(
+  data = mpg,
+  mapping = aes(x = hwy, y = displ)
+) +
+  geom_point(mapping= aes(color=cyl, size=year))
+```
+```
+ggplot(
+  data = mpg,
+  mapping = aes(x = hwy, y = displ)
+) +
+  geom_point(mapping= aes(shape=manufacturer))
+```
+continuous values (numeric) are permissible for color and size, but not for shape. Color can be represented continuously (for numeric data) or discretely (for categorical data). size can be assigned categorical or numeric data, however size is better suited for visual representations of numeric data than categorical data.
+
+##### 3. In the scatterplot of hwy vs. displ, what happens if you map a third variable to linewidth?
+generates a warning message ("ignoring unknown aesthetics: linewidth") because the scatterplot has no line to map linewidth to
+
+##### 4. What happens if you map the same variable to multiple aesthetics?
+the relationship between those features/aesthetics will be 1:1
+
+##### 5. Make a scatterplot of bill_depth_mm vs. bill_length_mm and color the points by species. What does adding coloring by species reveal about the relationship between these two variables? What about faceting by species?
+```
+ggplot(
+  data = penguins,
+  mapping = aes(x = bill_depth_mm, y = bill_length_mm)
+) +
+  geom_point(mapping= aes(color=species))
+```
+shows how the bill_length_mm/bill_depth_mm relationship clusters by species
+
+##### 6. Why does the following yield two separate legends? How would you fix it to combine the two legends?
+```
+ggplot(
+  data = penguins,
+  mapping = aes(
+    x = bill_length_mm, y = bill_depth_mm, 
+    color = species, shape = species
+  )
+) +
+  geom_point() +
+  labs(color = "Species")
+```
+remove lab(color= "Species")
+
+##### 7. Create the two following stacked bar plots. Which question can you answer with the first one? Which question can you answer with the second one?
+```
+ggplot(penguins, aes(x = island, fill = species)) +
+  geom_bar(position = "fill")
+```
+```
+ggplot(penguins, aes(x = species, fill = island)) +
+  geom_bar(position = "fill")
+```
+first stacked bar answers the question of which penguins and how many live on each island, whereas the second stacked bar plot answers the question of which islands do each penguin live on
+
+## 1.6.1 Exercises
+
+##### 1. Run the following lines of code. Which of the two plots is saved as mpg-plot.png? Why?
+```
+ggplot(mpg, aes(x = class)) +
+  geom_bar()
+ggplot(mpg, aes(x = cty, y = hwy)) +
+  geom_point()
+ggsave("mpg-plot.png")
+```
+the second because it is the most recently run plot
+
+##### 2. What do you need to change in the code above to save the plot as a PDF instead of a PNG? How could you find out what types of image files would work in ggsave()?
+change the file extension  
+use ?ggsave and read documentation
