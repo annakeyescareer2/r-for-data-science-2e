@@ -4,8 +4,8 @@
 
 ##### 1. How many rows are in penguins? How many columns?
 'penguins' into console or 'glimpse(penguins)'  
-Rows: 344  
-Columns: 8
+rows: 344  
+columns: 8
 
 ##### 2. What does the bill_depth_mm variable in the penguins data frame describe? Read the help for ?penguins to find out.
 a number denoting bill length (millimeters)
