@@ -1,6 +1,6 @@
 # R FOR DATA SCIENCE 2E - CHAPTER 1 
 
-## 1.2.5
+## 1.2.5 Exercises
 
 ##### 1. How many rows are in penguins? How many columns?
 'penguins' into console or 'glimpse(penguins)'
@@ -79,3 +79,27 @@ ggplot() +
 )
 ```
 no; in this instance, data and mapping is the same defined globally vs geom
+
+## 1.4.3 Exercises
+
+##### 1. Make a bar plot of species of penguins, where you assign species to the y aesthetic. How is this plot different?
+Assigning species to the y aesthetic will flip the axes (species on y and count on x), effectively rotating the plot 90 degrees
+
+##### 2. How are the following two plots different? Which aesthetic, color or fill, is more useful for changing the color of bars?
+```
+ggplot(penguins, aes(x = species)) + geom_bar(color = "red")
+```
+```
+ggplot(penguins, aes(x = species)) + geom_bar(fill = "red")
+```
+geom_bar(color="red") only assigns the color red to the borders of the bars, whereas geom_bar(fill="red") recolors the whole bar
+
+##### 3. What does the bins argument in geom_histogram() do?
+determines the number of bins the histogram is divided into
+
+##### 4. Make a histogram of the carat variable in the diamonds dataset that is available when you load the vidyverse package. Experiment with different binwidths. What binwidth reveals the most interesting patterns?
+```
+ggplot(diamonds, aes(x = carat)) +
+  geom_histogram(binwidth = .5)
+```
+smaller binwidths (.125) reveal more variation in the data, while larger binwidths (1) generalize beyond usefulness; a binwidth of .5 shows a clear relationship without overgeneralizing.
