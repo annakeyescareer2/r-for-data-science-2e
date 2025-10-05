@@ -8,6 +8,7 @@ my_variable <- 10
 my_varıable
 #> Error: object 'my_varıable' not found
 ```
+spelling error; my_variable is not the same as my_varıable
 
 ##### 2. Tweak each of the following R commands so that they run correctly:
 original:
