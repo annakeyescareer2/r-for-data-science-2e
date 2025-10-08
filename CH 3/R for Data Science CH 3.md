@@ -2,7 +2,7 @@
 
 ## 3.2.5 Exercises
 
-##### In a single pipeline for each condition, find all flights that meet the condition:
+##### 1. In a single pipeline for each condition, find all flights that meet the condition:
 Had an arrival delay of two or more hours
 ```
 flights |>
