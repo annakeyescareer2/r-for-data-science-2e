@@ -69,4 +69,4 @@ flights |>
 ##### 6. Does it matter what order you used filter() and arrange() if you’re using both? Why/why not? Think about the results and how much work the functions would have to do.
 in terms of work for the function, it would be better to filter before arranging, as there would be fewer records to arrange; the end result, however, should be the same either way
 
-## 3.5.7 Exercises
+## 3.3.5 Exercises
