@@ -72,6 +72,7 @@ in terms of work for the function, it would be better to filter before arranging
 ## 3.3.5 Exercises
 
 ##### 1. Compare dep_time, sched_dep_time, and dep_delay. How would you expect those three numbers to be related?
+dep_delay = dep_time - sched_dep_time
 
 ##### 2. Brainstorm as many ways as possible to select dep_time, dep_delay, arr_time, and arr_delay from flights.
 
