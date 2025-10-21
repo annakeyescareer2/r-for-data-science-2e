@@ -75,6 +75,10 @@ in terms of work for the function, it would be better to filter before arranging
 dep_delay = dep_time - sched_dep_time
 
 ##### 2. Brainstorm as many ways as possible to select dep_time, dep_delay, arr_time, and arr_delay from flights.
+dep_time = sched_dep_time + dep_delay
+dep_delay = dep_time - sched_dep_time
+arr_time = sched_arr_time + arr_delay
+arr_delay = arr_time - sched_arr_time
 
 ##### 3. What happens if you specify the name of the same variable multiple times in a select() call?
 
