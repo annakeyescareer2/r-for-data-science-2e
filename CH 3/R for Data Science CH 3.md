@@ -81,6 +81,7 @@ arr_time = sched_arr_time + arr_delay
 arr_delay = arr_time - sched_arr_time
 
 ##### 3. What happens if you specify the name of the same variable multiple times in a select() call?
+the variable is called just as it would be if it had been called once
 
 ##### 4. What does the any_of() function do? Why might it be helpful in conjunction with this vector?
 ```
