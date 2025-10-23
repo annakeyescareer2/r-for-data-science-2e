@@ -87,6 +87,7 @@ the variable is called just as it would be if it had been called once
 ```
 variables <- c("year", "month", "day", "dep_delay", "arr_delay")
 ```
+selects all columns listed and does not return an error if one (or many) does not exist
 
 ##### 5. Does the result of running the following code surprise you? How do the select helpers deal with upper and lower case by default? How can you change that default?
 ```
