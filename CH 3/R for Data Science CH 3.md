@@ -75,10 +75,12 @@ in terms of work for the function, it would be better to filter before arranging
 dep_delay = dep_time - sched_dep_time
 
 ##### 2. Brainstorm as many ways as possible to select dep_time, dep_delay, arr_time, and arr_delay from flights.
-dep_time = sched_dep_time + dep_delay
-dep_delay = dep_time - sched_dep_time
-arr_time = sched_arr_time + arr_delay
-arr_delay = arr_time - sched_arr_time
+```
+flights |>
+  select(dep_time, dep_delay, arr_time, arr_delay)
+flights |>
+  select(starts_with("arr"), starts_with("dep"))
+```
 
 ##### 3. What happens if you specify the name of the same variable multiple times in a select() call?
 the variable is called just as it would be if it had been called once
@@ -93,8 +95,13 @@ selects all columns listed and does not return an error if one (or many) does no
 ```
 flights |> select(contains("TIME"))
 ```
+no; select is case-insensitive by default (ignore.case = TRUE), but to change that default you can set ignore.case = FALSE
 
 ##### 6. Rename air_time to air_time_min to indicate units of measurement and move it to the beginning of the data frame.
+```
+flights |> 
+  mutate(air_time_min = air_time, .before = 1)
+```
 
 ##### 7. Why doesn’t the following work, and what does the error mean?
 ```
@@ -105,4 +112,10 @@ flights |>
 #> ℹ In argument: `..1 = arr_delay`.
 #> Caused by error:
 #> ! object 'arr_delay' not found
+```
+you cannot arrange by arr_delay because it does not exist in the selected subset of the table (which only includes the column tailnum); a modification of the statement can be found below:
+```
+flights |> 
+  arrange(arr_delay) |>
+    select(tailnum)
 ```
