@@ -119,3 +119,104 @@ flights |>
   arrange(arr_delay) |>
     select(tailnum)
 ```
+
+## 3.5.7 Exercises
+
+##### 1. Which carrier has the worst average delays? Challenge: can you disentangle the effects of bad airports vs. bad carriers? Why/why not? (Hint: think about flights |> group_by(carrier, dest) |> summarize(n()))
+```
+flights |>
+  group_by(carrier) |>
+  summarize(arr_delay = mean(arr_delay, na.rm = TRUE), n= n()) |>
+  arrange(desc(arr_delay))
+```
+F9 has the worst average delays
+```
+flights |>
+  group_by(carrier, dest) |>
+  summarize(arr_delay = mean(arr_delay, na.rm = TRUE), n= n()) |>
+  arrange(desc(arr_delay))
+```
+no clear pattern of bad airports
+
+##### 2. Find the flights that are most delayed upon departure from each destination.
+```
+flights |>
+  group_by(dest) |>
+  arrange(desc(dep_delay)) |>
+  relocate(dest, dep_delay)
+```
+
+##### 3. How do delays vary over the course of the day? Illustrate your answer with a plot.
+```
+flights |>
+  ggplot(aes(x = dep_time, y=dep_delay)) +
+  geom_smooth()
+```
+delays are greatest at the earliest and latest in the day
+
+##### 4. What happens if you supply a negative n to slice_min() and friends?
+it should wrap around and give the last value n can assume
+
+##### 5. Explain what count() does in terms of the dplyr verbs you just learned. What does the sort argument to count() do?
+counts observations in a group; the sort argument puts the most frequent observations at the top
+
+##### 6. Suppose we have the following tiny data frame:
+```
+df <- tibble(
+  x = 1:5,
+  y = c("a", "b", "a", "a", "b"),
+  z = c("K", "K", "L", "L", "K")
+)
+```
+
+##### a. Write down what you think the output will look like, then check if you were correct, and describe what group_by() does.
+```
+df |>
+  group_by(y)
+```
+provides information about the groups that exist (Groups: y[2])
+
+##### b. Write down what you think the output will look like, then check if you were correct, and describe what arrange() does. Also, comment on how it’s different from the group_by() in part (a).
+```
+df |>
+  arrange(y)
+```
+arrange() sorts observations by group; group_by() does not rearrange values
+
+##### c. Write down what you think the output will look like, then check if you were correct, and describe what the pipeline does.
+```
+df |>
+  group_by(y) |>
+  summarize(mean_x = mean(x))
+```
+gives the mean of x for each y
+
+##### d. Write down what you think the output will look like, then check if you were correct, and describe what the pipeline does. Then, comment on what the message says.
+```
+df |>
+  group_by(y, z) |>
+  summarize(mean_x = mean(x))
+```
+gives the mean of x for each unique (y,z) pair
+
+##### e. Write down what you think the output will look like, then check if you were correct, and describe what the pipeline does. How is the output different from the one in part (d)?
+```
+df |>
+  group_by(y, z) |>
+  summarize(mean_x = mean(x), .groups = "drop")
+```
+the output does not give the groups (Groups: y[2])
+
+##### f. Write down what you think the outputs will look like, then check if you were correct, and describe what each pipeline does. How are the outputs of the two pipelines different?
+```
+df |>
+  group_by(y, z) |>
+  summarize(mean_x = mean(x))
+```
+gives the mean of x for each unique (y,z) pair
+```
+df |>
+  group_by(y, z) |>
+  mutate(mean_x = mean(x))
+```
+gives the mean of x for each (y,z) and does not drop duplicate observations
